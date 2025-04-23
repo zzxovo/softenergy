@@ -1,0 +1,51 @@
+@startuml
+package "design_mode_3" {
+    class MenuItem {
+        - Command command
+        + MenuItem(Command command)
+        + getCommand(): Command
+        + setCommand(Command command): void
+        + click(): void
+    }
+    class Menu {
+        - ArrayList<MenuItem> menuItems
+        + Menu()
+        + addMenuItem(MenuItem menuItem): void
+        + foreach(): void
+    }
+    abstract class Command {
+        + abstract execute(): void
+    }
+    class BoardScreen {
+        + open(): void
+        + create(): void
+        + edit(): void
+    }
+    class OpenCommand extends Command {
+        - BoardScreen boardScreen
+        + OpenCommand(BoardScreen boardScreen)
+        + execute(): void
+    }
+    class CreateCommand extends Command {
+        - BoardScreen boardScreen
+        + CreateCommand(BoardScreen boardScreen)
+        + execute(): void
+    }
+    class EditCommand extends Command {
+        - BoardScreen boardScreen
+        + EditCommand(BoardScreen boardScreen)
+        + execute(): void
+    }
+    class homework1 {
+        + main(String[] args): void
+    }
+    Menu "1" *-- "0..*" MenuItem : contains
+    MenuItem "1" *-- "1" Command : has
+    OpenCommand "1" *-- "1" BoardScreen : uses
+    CreateCommand "1" *-- "1" BoardScreen : uses
+    EditCommand "1" *-- "1" BoardScreen : uses
+    OpenCommand --|> Command
+    CreateCommand --|> Command
+    EditCommand --|> Command
+}
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+package design_mode_3 {
+    ' 定义折扣策略接口
+    interface DiscountStrategy {
+        + computeDiscount(double originalPrice): double
+    }
+
+    ' 定义计算机类图书折扣策略类
+    class ComputerBookDiscount {
+        + computeDiscount(double originalPrice): double
+    }
+
+    ' 定义语言类图书折扣策略类
+    class LanguageBookDiscount {
+        + computeDiscount(double originalPrice): double
+    }
+
+    ' 定义小说类图书折扣策略类
+    class NovelBookDiscount {
+        + computeDiscount(double originalPrice): double
+    }
+
+    ' 定义图书类
+    class Book {
+        - String title
+        - double price
+        - DiscountStrategy discountStrategy
+        + Book(String title, double price, DiscountStrategy discountStrategy)
+        + getFinalPrice(): double
+        + getTitle(): String
+    }
+
+    ' 定义主类
+    class homework5 {
+        + main(String[] args)
+    }
+
+    ' 类之间的关系
+    DiscountStrategy <|.. ComputerBookDiscount : implements
+    DiscountStrategy <|.. LanguageBookDiscount : implements
+    DiscountStrategy <|.. NovelBookDiscount : implements
+    Book "1" *-- "1" DiscountStrategy : uses
+    homework5 --> Book : uses
+}
+@enduml

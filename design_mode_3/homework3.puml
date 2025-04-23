@@ -1,0 +1,78 @@
+@startuml
+' 定义接口
+interface PlayerState {
+    + play()
+    + win()
+    + lose()
+}
+
+' 定义具体状态类
+class PrimaryState {
+    - Player player
+    + PrimaryState(Player player)
+    + play()
+    + win()
+    + lose()
+}
+
+class SecondaryState {
+    - Player player
+    + SecondaryState(Player player)
+    + play()
+    + win()
+    + lose()
+    + doubleScore()
+}
+
+class ProfessionalState {
+    - Player player
+    + ProfessionalState(Player player)
+    + play()
+    + win()
+    + lose()
+    + doubleScore()
+    + changeCards()
+}
+
+class FinalState {
+    - Player player
+    + FinalState(Player player)
+    + play()
+    + win()
+    + lose()
+    + doubleScore()
+    + changeCards()
+    + peekCards()
+}
+
+' 定义玩家类
+class Player {
+    - PlayerState state
+    - int score
+    + Player()
+    + updateState()
+    + play()
+    + win()
+    + lose()
+    + addScore(int increment)
+    + subtractScore(int decrement)
+}
+
+' 定义主类
+class homework3 {
+    + main(String[] args)
+}
+
+' 类之间的关系
+PlayerState <|.. PrimaryState : implements
+PlayerState <|.. SecondaryState : implements
+PlayerState <|.. ProfessionalState : implements
+PlayerState <|.. FinalState : implements
+Player "1" *-- "1" PlayerState : aggregates
+PrimaryState --> Player : depends on
+SecondaryState --> Player : depends on
+ProfessionalState --> Player : depends on
+FinalState --> Player : depends on
+homework3 --> Player : depends on
+
+@enduml

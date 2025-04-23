@@ -1,0 +1,47 @@
+@startuml
+' 定义接口
+interface MyIterator {
+    + hasNext(): boolean
+    + next(): Object
+    + hasPrevious(): boolean
+    + previous(): Object
+}
+
+' 定义抽象类
+abstract class Aggregate {
+    - String[] products
+    - int size
+    + Aggregate(int capacity)
+    + addProduct(String product): void
+    + createIterator(): MyIterator (abstract)
+}
+
+' 定义具体类
+class ConcreteAggregate {
+    + ConcreteAggregate(int capacity)
+    + createIterator(): MyIterator
+}
+
+class ConcreteIterator {
+    - Aggregate aggregate
+    - int currentIndex
+    + ConcreteIterator(Aggregate aggregate)
+    + hasNext(): boolean
+    + next(): Object
+    + hasPrevious(): boolean
+    + previous(): Object
+}
+
+class homework2 {
+    + main(String[] args): void
+}
+
+' 类之间的关系
+Aggregate <|-- ConcreteAggregate : inheritance
+MyIterator <|.. ConcreteIterator : realization
+ConcreteAggregate --> ConcreteIterator : creates
+ConcreteIterator --> Aggregate : uses
+homework2 --> ConcreteAggregate : uses
+homework2 --> MyIterator : uses
+
+@enduml

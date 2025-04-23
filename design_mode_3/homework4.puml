@@ -1,0 +1,59 @@
+@startuml
+package design_mode_3 {
+    ' 定义观察者接口
+    interface Observer {
+        + update(String newDepartmentName)
+    }
+
+    ' 定义被观察者接口
+    interface Subject {
+        + attach(Observer observer)
+        + removeObserver(Observer observer)
+        + notifyObservers(String newDepartmentName)
+    }
+
+    ' 定义教师类（具体观察者）
+    class Teacher {
+        - String name
+        - String departmentName
+        + Teacher(String name, String departmentName)
+        + update(String newDepartmentName)
+    }
+
+    ' 定义系类（具体被观察者）
+    class Department {
+        - String departmentName
+        - List<Observer> observers
+        + Department(String departmentName)
+        + getDepartmentName()
+        + setDepartmentName(String departmentName)
+        + attach(Observer observer)
+        + removeObserver(Observer observer)
+        + notifyObservers(String newDepartmentName)
+    }
+
+    ' 定义学生类（具体观察者）
+    class Student {
+        - String name
+        - String departmentName
+        + Student(String name, String departmentName)
+        + update(String newDepartmentName)
+    }
+
+    ' 定义主类
+    class homework4 {
+        + main(String[] args)
+    }
+
+    ' 类之间的关系
+    Observer <|.. Teacher : implements
+    Observer <|.. Student : implements
+    Subject <|.. Department : implements
+    Department "1" *-- "*" Observer : has
+    Department --> Teacher : notifies
+    Department --> Student : notifies
+    homework4 --> Department : uses
+    homework4 --> Teacher : uses
+    homework4 --> Student : uses
+}
+@enduml
